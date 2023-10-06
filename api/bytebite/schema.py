@@ -1,27 +1,27 @@
 import graphene
 
 from graphene_django import DjangoObjectType, DjangoListField
-from .models import User
+from .models import Users
 
 
-class UserType(DjangoObjectType):
+class UsersType(DjangoObjectType):
     class Meta:
-        model = User
+        model = Users
         fields = "__all__"
 
 
 class Query(graphene.ObjectType):
-    all_users = graphene.List(UserType)
-    User_by_name = graphene.Field(UserType, last_name=graphene.String(required=True))
+    all_users = graphene.List(UsersType)
+    User_by_name = graphene.Field(UsersType, last_name=graphene.String(required=True))
 
     def resolve_all_users(root, info):
         # We can easily optimize query count in the resolve method
-        return User.objects.select_related("id").all()
+        return Users.objects.select_related("id").all()
 
     def resolve_user_by_last_name(root, info, last_name):
         try:
-            return User.objects.get(last_name=last_name)
-        except User.DoesNotExist:
+            return Users.objects.get(last_name=last_name)
+        except Users.DoesNotExist:
             return None
 
 

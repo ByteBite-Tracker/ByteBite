@@ -81,11 +81,18 @@ DATABASES = {
         "NAME": "bytebite",
         "USER": "postgres",
         "PASSWORD": "password",
-        "HOST": "bytebite.ctr49t0lbvgx.us-east-2.rds.amazonaws.com",
+        "HOST": "bytebite-project.ctr49t0lbvgx.us-east-2.rds.amazonaws.com",
         "PORT": "5432",
     }
 }
 
+PASSWORD_HASHERS = [
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
+    "django.contrib.auth.hashers.ScryptPasswordHasher",
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

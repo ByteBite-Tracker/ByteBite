@@ -1,5 +1,5 @@
 from django.contrib import admin
-from bytebite.models import User
+from bytebite.models import Users
 
 # Register your models here.
-admin.site.register(User)
+admin.site.register(Users)
