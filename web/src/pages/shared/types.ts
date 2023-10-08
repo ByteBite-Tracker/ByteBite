@@ -9,4 +9,3 @@ export enum SelectedPage {
     title: string;
     description: string;
   }
-  
