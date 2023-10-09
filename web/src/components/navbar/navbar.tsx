@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Logo from "@/public/images/pexels-any-lane-5945660.jpg";
 import { SelectedPage } from "@/pages/shared/types";
-import { Link } from "./Link";
-import ActionButton from "@/pages/shared/ActionButton";
+import { NavbarLink } from "./navbar-link";
+import { RouteButton } from "@/pages/shared/route-button";
 import { Box, Button, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
@@ -23,36 +23,43 @@ export const Navbar = ({
   const route = useRouter();
 
   return (
-    <Box>
-      <Flex justifyContent={"space-evenly"}>
-        <Link
-          page="Home"
-          selectedPage={selectedPage}
-          setSelectedPage={setSelectedPage}
-        />
-        <Link
-          page="foo"
-          selectedPage={selectedPage}
-          setSelectedPage={setSelectedPage}
-        />
-        <Link
-          page="bar"
-          selectedPage={selectedPage}
-          setSelectedPage={setSelectedPage}
-        />
-        <Link
-          page="Contact Us"
-          selectedPage={selectedPage}
-          setSelectedPage={setSelectedPage}
-        />
-
-        <Box>
-          <ActionButton buttonText="Log-in Now" routingPath={"./log-in"} />
-          <ActionButton
-            buttonText="Sign Up Now"
-            routingPath={"./create_user"}
+    <Box paddingTop={"10px"} background={"pink"} paddingBottom={"10px"}>
+      <Flex
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        flexDirection={"column"}
+      >
+        <Flex>
+          <NavbarLink
+            page="Home"
+            selectedPage={selectedPage}
+            setSelectedPage={setSelectedPage}
           />
-        </Box>
+          <NavbarLink
+            page="About Us"
+            selectedPage={selectedPage}
+            setSelectedPage={setSelectedPage}
+          />
+          <NavbarLink
+            page="Calculator"
+            selectedPage={selectedPage}
+            setSelectedPage={setSelectedPage}
+          />
+          <NavbarLink
+            page="Contact Us"
+            selectedPage={selectedPage}
+            setSelectedPage={setSelectedPage}
+          />
+        </Flex>
+        <Flex
+          justifyContent={{ base: "center", md: "flex-end" }}
+          marginTop={{ base: "10px", md: "0" }}
+        >
+          <Box gap="2">
+            <RouteButton buttonText="Log-in" routingPath={"./log-in"} />
+            <RouteButton buttonText="Sign Up" routingPath={"./create_user"} />
+          </Box>
+        </Flex>
       </Flex>
     </Box>
   );
