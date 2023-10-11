@@ -1,10 +1,23 @@
-import React from 'react';
-import { useGet_UsersQuery } from '../../../generated/graphql';
+import { useQuery } from 'urql';
+import { graphql } from '@/gql';
 
+const GET_USERS = graphql(`
+  query GET_USERS {
+    allUsers {
+      id
+      name
+      info {
+        goalWeight
+        height
+        startWeight
+      }
+    }
+  }
+`);
 
 export function UserList() {
   // our query's result, data, is typed!
-  const [{data, fetching}] = useGet_UsersQuery();
+  const [{data, fetching}] = useQuery({query: GET_USERS});
   console.log(fetching, data);
   return (
     <div>

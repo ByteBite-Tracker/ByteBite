@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "compile": "graphql-codegen --config codegen.yml",
+    "compile": "graphql-codegen",
     "dev": "next dev",
     "build": "next build",
     "n start": "next start",
@@ -17,7 +17,6 @@
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "cors": "^2.8.5",
     "framer-motion": "^10.16.4",
     "graphql": "^16.8.1",
     "next": "13.5.4",
