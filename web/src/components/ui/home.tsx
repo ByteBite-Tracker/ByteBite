@@ -6,6 +6,7 @@ import {
   Text,
   VStack,
   Flex,
+  Spacer,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
@@ -17,24 +18,21 @@ export const Home: FC = () => {
   const route = useRouter();
   const [selectedPage, setSelectedPage] = useState(SelectedPage.Home);
   return (
-    <Box bg="darkgreen" minHeight="100vh">
-      <Navbar
-        isTopOfPage={true}
-        setSelectedPage={setSelectedPage}
-        selectedPage={selectedPage}
-      />
-
-      <Flex
+    
+      <><Navbar
+      isTopOfPage={true}
+      setSelectedPage={setSelectedPage}
+      selectedPage={selectedPage} children={undefined} /><Flex
         justifyContent="center" // Center horizontally
         alignItems="center" // Center vertically
       >
         <Box
-          color="white"
           textAlign="center"
           paddingTop={"20px"}
           maxW="500px"
           marginBottom="20px"
           marginTop="20px"
+
         >
           <Box boxSize="300px" display="flex" alignItems="center" margin="auto">
             <Image
@@ -42,22 +40,23 @@ export const Home: FC = () => {
               boxSize="300px"
               src="images\pexels-lukas-669623.jpg"
               onLoad={() => console.log("Image loaded")}
-              onError={() => console.error("Image error")}
-            />
+              onError={() => console.error("Image error")} />
           </Box>
 
           <Box boxSize="auto" flex="1" padding="20px">
             <Text
               fontSize={"lg"}
               background={"ButtonShadow"}
-              backgroundColor={"pink"}
+              backgroundColor={"gray.300"}
               borderRadius={"10px"}
               color={"black"}
               fontFamily={"heading"}
+              margin={"10px"}
+              opacity={"70%"}
             >
               Graphical Insights for Nutritional Success
             </Text>
-            <Text paddingTop={"20px"} fontWeight={"bold"}>
+            <Text padding={"10px"} fontWeight={"bold"} border={"1px"} borderColor={"gray.300"} borderRadius={"10px"}>
               At ByteBite, we understand that achieving your nutritional goals
               requires more than just logging your meals and activities. It's
               about gaining valuable insights and visualizing your progress
@@ -75,22 +74,23 @@ export const Home: FC = () => {
               alt="calculations"
               onLoad={() => console.log("Image loaded")}
               onError={() => console.error("Image error")}
-              margin="auto"
-            />
+              margin="auto" />
           </Box>
 
           <Box boxSize="auto" flex="1" padding="20px">
             <Text
               fontSize={"lg"}
               background={"ButtonShadow"}
-              backgroundColor={"pink"}
+              backgroundColor={"gray.300"}
               borderRadius={"10px"}
               color={"black"}
               fontFamily={"heading"}
+              margin={"10px"}
+              opacity={"70%"}
             >
               Seamless Nutritional Calculations for Your Convenience
             </Text>
-            <Text paddingTop={"20px"} fontWeight={"bold"}>
+            <Text padding={"10px"} fontWeight={"bold"} border={"1px"} borderColor={"gray.300"} borderRadius={"10px"}>
               At ByteBite, we believe in making nutrition tracking as effortless
               as possible for our users. Our platform is designed to handle all
               the complex calculations, ensuring that you have accurate and
@@ -112,23 +112,23 @@ export const Home: FC = () => {
               alt="activity"
               onLoad={() => console.log("Image loaded")}
               onError={() => console.error("Image error")}
-              margin="auto"
-            />
+              margin="auto" />
           </Box>
 
           <Box boxSize="auto" flex="1" padding="20px">
             <Text
               fontSize={"lg"}
               background={"ButtonShadow"}
-              backgroundColor={"pink"}
+              backgroundColor={"gray.300"}
               borderRadius={"10px"}
               color={"black"}
               fontFamily={"heading"}
+              margin={"10px"}
+              opacity={"70%"}
             >
-              Seamless Integration of Exercise Tracking for a Holistic Health
-              Approach
+              Focus on your acvitity while we do the work for you
             </Text>
-            <Text paddingTop={"20px"} fontWeight={"bold"}>
+            <Text padding={"10px"} fontWeight={"bold"} border={"1px"} borderColor={"gray.300"} borderRadius={"10px"}>
               At ByteBite, we understand that achieving your health and fitness
               goals isn't just about what you eat but also how you move. Once
               your done putting in your daily food intake, WE DO ALL THE WORK
@@ -141,8 +141,8 @@ export const Home: FC = () => {
             <RouteButton buttonText="Sign Up Now" routingPath={"./signup"} />
           </VStack>
         </Box>
-      </Flex>
-    </Box>
+      </Flex></>
+    
   );
 };
 
