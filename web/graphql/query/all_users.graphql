@@ -1,0 +1,11 @@
+query GET_USERS {
+   allUsers {
+    id
+    name
+    info {
+      goalWeight
+      height
+      startWeight
+    }
+  }
+}
