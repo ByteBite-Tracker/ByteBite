@@ -6,7 +6,9 @@ import {
   Text,
   VStack,
   Flex,
+
   Spacer,
+
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
@@ -18,11 +20,13 @@ export const Home: FC = () => {
   const route = useRouter();
   const [selectedPage, setSelectedPage] = useState(SelectedPage.Home);
   return (
+
     
       <><Navbar
       isTopOfPage={true}
       setSelectedPage={setSelectedPage}
       selectedPage={selectedPage} children={undefined} /><Flex
+
         justifyContent="center" // Center horizontally
         alignItems="center" // Center vertically
       >
@@ -32,7 +36,6 @@ export const Home: FC = () => {
           maxW="500px"
           marginBottom="20px"
           marginTop="20px"
-          
 
         >
           <Box boxSize="300px" display="flex" alignItems="center" margin="auto">
@@ -41,13 +44,15 @@ export const Home: FC = () => {
               boxSize="300px"
               src="images\pexels-lukas-669623.jpg"
               onLoad={() => console.log("Image loaded")}
+
               onError={() => console.error("Image error")} />
-          </Box>
+
 
           <Box boxSize="auto" flex="1" padding="20px">
             <Text
               fontSize={"lg"}
               background={"ButtonShadow"}
+
               backgroundColor={"gray.300"}
               borderRadius={"10px"}
               color={"black"}
@@ -58,6 +63,7 @@ export const Home: FC = () => {
               Graphical Insights for Nutritional Success
             </Text>
             <Text padding={"10px"} fontWeight={"bold"} border={"1px"} borderColor={"gray.300"} borderRadius={"10px"}>
+
               At ByteBite, we understand that achieving your nutritional goals
               requires more than just logging your meals and activities. It's
               about gaining valuable insights and visualizing your progress
@@ -75,13 +81,16 @@ export const Home: FC = () => {
               alt="calculations"
               onLoad={() => console.log("Image loaded")}
               onError={() => console.error("Image error")}
+
               margin="auto" />
+
           </Box>
 
           <Box boxSize="auto" flex="1" padding="20px">
             <Text
               fontSize={"lg"}
               background={"ButtonShadow"}
+
               backgroundColor={"gray.300"}
               borderRadius={"10px"}
               color={"black"}
@@ -92,6 +101,7 @@ export const Home: FC = () => {
               Seamless Nutritional Calculations for Your Convenience
             </Text>
             <Text padding={"10px"} fontWeight={"bold"} border={"1px"} borderColor={"gray.300"} borderRadius={"10px"}>
+
               At ByteBite, we believe in making nutrition tracking as effortless
               as possible for our users. Our platform is designed to handle all
               the complex calculations, ensuring that you have accurate and
@@ -114,12 +124,14 @@ export const Home: FC = () => {
               onLoad={() => console.log("Image loaded")}
               onError={() => console.error("Image error")}
               margin="auto" />
+
           </Box>
 
           <Box boxSize="auto" flex="1" padding="20px">
             <Text
               fontSize={"lg"}
               background={"ButtonShadow"}
+
               backgroundColor={"gray.300"}
               borderRadius={"10px"}
               color={"black"}
@@ -130,6 +142,7 @@ export const Home: FC = () => {
               Focus on your acvitity while we do the work for you
             </Text>
             <Text padding={"10px"} fontWeight={"bold"} border={"1px"} borderColor={"gray.300"} borderRadius={"10px"}>
+
               At ByteBite, we understand that achieving your health and fitness
               goals isn't just about what you eat but also how you move. Once
               your done putting in your daily food intake, WE DO ALL THE WORK
@@ -142,8 +155,10 @@ export const Home: FC = () => {
             <RouteButton buttonText="Sign Up Now" routingPath={"./signup"} />
           </VStack>
         </Box>
+
       </Flex></>
     
+
   );
 };
 

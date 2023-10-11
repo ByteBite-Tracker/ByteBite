@@ -24,10 +24,12 @@ import {
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
+
 type Props = {
   isTopOfPage: boolean;
   selectedPage: SelectedPage;
   setSelectedPage: (value: SelectedPage) => void;
+
   children: React.ReactNode;
 };
 const NavLink = (props: Props) => {
@@ -48,6 +50,7 @@ const NavLink = (props: Props) => {
       {children}
     </Box>
   );
+ 
 };
 
 export const Navbar = ({
@@ -55,8 +58,10 @@ export const Navbar = ({
   selectedPage,
   setSelectedPage,
 }: Props) => {
+
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   const flexBetween = "flex items-center justify-between";
   const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
   const navbarBackground = isTopOfPage ? "" : "drop-shadow";
