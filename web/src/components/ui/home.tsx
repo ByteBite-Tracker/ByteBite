@@ -32,6 +32,7 @@ export const Home: FC = () => {
           maxW="500px"
           marginBottom="20px"
           marginTop="20px"
+          
 
         >
           <Box boxSize="300px" display="flex" alignItems="center" margin="auto">

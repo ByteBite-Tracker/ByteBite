@@ -67,31 +67,30 @@ export const Navbar = ({
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <Box>Logo</Box>
-          <NavbarLink
-                page="Home"
-                selectedPage={selectedPage}
-                setSelectedPage={setSelectedPage}
-              />
-              <NavbarLink
-                page="About Us"
-                selectedPage={selectedPage}
-                setSelectedPage={setSelectedPage}
-              />
-              <NavbarLink
-                page="Calculator"
-                selectedPage={selectedPage}
-                setSelectedPage={setSelectedPage}
-              />
-              <NavbarLink
-                page="Contact Us"
-                selectedPage={selectedPage}
-                setSelectedPage={setSelectedPage}
-              />
+          <Flex gap={"20px"}>
+            <NavbarLink
+              page="Home"
+              selectedPage={selectedPage}
+              setSelectedPage={setSelectedPage}
+            />
+            <NavbarLink
+              page="About Us"
+              selectedPage={selectedPage}
+              setSelectedPage={setSelectedPage}
+            />
+            <NavbarLink
+              page="Calculator"
+              selectedPage={selectedPage}
+              setSelectedPage={setSelectedPage}
+            />
+            <NavbarLink
+              page="Contact Us"
+              selectedPage={selectedPage}
+              setSelectedPage={setSelectedPage}
+            />
+          </Flex>
           <Flex alignItems={"center"}>
-
-            <Stack direction={"row"} spacing={7}>
-              
-          
+            <Stack direction={"row"}>
               <Button onClick={toggleColorMode}>
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
