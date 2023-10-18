@@ -48,6 +48,7 @@ const NavLink = (props: Props) => {
       {children}
     </Box>
   );
+ 
 };
 
 export const Navbar = ({
@@ -55,8 +56,10 @@ export const Navbar = ({
   selectedPage,
   setSelectedPage,
 }: Props) => {
+
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   const flexBetween = "flex items-center justify-between";
   const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
   const navbarBackground = isTopOfPage ? "" : "drop-shadow";
