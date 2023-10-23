@@ -1,8 +1,8 @@
-from .mutations import createUser, updateUser
+from .mutations import addFood, addFoodLog, createPrefereneces, createUser, updatePrefereneces, updateUser
 import graphene
 from graphene_django.forms import mutation
 from graphene_django import DjangoObjectType, DjangoListField
-from .forms import UserForm, UserUpdateForm
+from .forms import CreatePreferenceForm, UpdatePreferenceForm, UserForm, UserUpdateForm
 from .models import Users, Users_info, FoodItem, UserFoodLog
 
 
@@ -40,4 +40,8 @@ class Query(graphene.ObjectType):
 class Mutation(graphene.ObjectType):
     create_user =createUser.Field()
     update_user = updateUser.Field()
+    create_preferences = createPrefereneces.Field()
+    update_preferences = updatePrefereneces.Field()
+    add_food = addFood.Field()
+    add_food_log = addFoodLog.Field()
 schema = graphene.Schema(query=Query, mutation=Mutation)
