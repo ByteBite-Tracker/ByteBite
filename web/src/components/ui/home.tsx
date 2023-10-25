@@ -70,21 +70,6 @@ export const Home: FC = () => {
           of a healthy lifestyle.
         </PicCard>
       </HStack>
-
-      <Modal
-        isCentered
-        onClose={onClose}
-        isOpen={isOpen}
-        motionPreset="slideInBottom"
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalCloseButton />
-          <ModalBody>
-            <SignupForm />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
     </>
   );
 };
