@@ -5,6 +5,9 @@ import {
   Stack,
   HStack,
   Spacer,
+  Center,
+  Button,
+  Box,
 } from "@chakra-ui/react";
 import { FC } from "react";
 import { PicCard } from "./pictureCard";
@@ -12,7 +15,7 @@ import { PicCard } from "./pictureCard";
 export const Home: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <>
+    <Box height={'90vh'}>
       <Flex
         justifyContent="center" // Center horizontally
         alignItems="center" // Center vertically
@@ -62,7 +65,12 @@ export const Home: FC = () => {
         </PicCard>
         <Spacer />
       </HStack>
-    </>
+      <Center>
+        <Button size={'lg'} colorScheme="teal">
+          Join Now
+        </Button>
+      </Center>
+    </Box>
   );
 };
 
