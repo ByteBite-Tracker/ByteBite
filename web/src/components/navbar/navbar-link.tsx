@@ -9,7 +9,6 @@ type Props = {
 export const NavbarLink = ({ page, route }: Props) => {
   const router = useRouter();
   const isActive = router.asPath === `/${route}`;
-  console.log(router.asPath, " ", route)
   const style: string = isActive ? 'nav-active' : '';
   return (
     <LinkBox margin={"10px"} className={style}>
