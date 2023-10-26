@@ -63,26 +63,11 @@ export const Navbar = ({
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <Box>Logo</Box>
           <Flex gap={"20px"}>
-            <NavbarLink
-              page="Home"
-              selectedPage={selectedPage}
-              setSelectedPage={setSelectedPage}
-            />
-            <NavbarLink
-              page="About Us"
-              selectedPage={selectedPage}
-              setSelectedPage={setSelectedPage}
-            />
-            <NavbarLink
-              page="Calculator"
-              selectedPage={selectedPage}
-              setSelectedPage={setSelectedPage}
-            />
-            <NavbarLink
-              page="Contact Us"
-              selectedPage={selectedPage}
-              setSelectedPage={setSelectedPage}
-            />
+            <NavbarLink page="Home" route="" />
+            <NavbarLink page="About Us" route="about" />
+
+            <NavbarLink page="Calculator" route="calc" />
+            <NavbarLink page="Contact Us" route="contact" />
           </Flex>
           <Flex alignItems={"center"}>
             <Stack direction={"row"}>
@@ -120,18 +105,10 @@ export const Navbar = ({
                   <MenuItem onClick={openLoginModal}>Login</MenuItem>
                   <MenuItem onClick={openSignupModal}>Sign Up</MenuItem>
                   <MenuItem>
-                    <NavbarLink
-                      page="About Us"
-                      selectedPage={selectedPage}
-                      setSelectedPage={setSelectedPage}
-                    />
+                    <NavbarLink page="About Us" route="about" />
                   </MenuItem>
                   <MenuItem>
-                    <NavbarLink
-                      page="Contact Us"
-                      selectedPage={selectedPage}
-                      setSelectedPage={setSelectedPage}
-                    />
+                    <NavbarLink page="Contact Us" route="contact" />
                   </MenuItem>
                   <Modal
                     isCentered
