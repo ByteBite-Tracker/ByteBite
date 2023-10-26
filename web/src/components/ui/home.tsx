@@ -1,23 +1,12 @@
 import {
-  Box,
-  Image,
-  Text,
-  VStack,
   Flex,
-  Modal,
-  ModalOverlay,
-  ModalContent,
   useDisclosure,
-  ModalCloseButton,
-  Button,
-  ModalBody,
   Heading,
   Stack,
-  SimpleGrid,
   HStack,
+  Spacer,
 } from "@chakra-ui/react";
 import { FC } from "react";
-import { SignupForm } from "../forms/signup";
 import { PicCard } from "./pictureCard";
 
 export const Home: FC = () => {
@@ -35,7 +24,8 @@ export const Home: FC = () => {
           <Heading as="h1">ByteBite Tracker</Heading>
         </Stack>
       </Flex>
-      <HStack justifyContent="center" alignItems="top" pt="2em">
+      <HStack justifyContent="center" alignItems="top" p="2em">
+        <Spacer />
         <PicCard
           img={"images/pexels-lukas-669623.jpg"}
           alt={""}
@@ -47,6 +37,7 @@ export const Home: FC = () => {
           healthier you. That's why we employ the power of graphs to
           revolutionize the way you track your nutrition and wellness journey.
         </PicCard>
+        <Spacer/>
         <PicCard
           img={"images/pexels-pixabay-220301.jpg"}
           alt={""}
@@ -57,6 +48,7 @@ export const Home: FC = () => {
           complex calculations, ensuring that you have accurate and up-to-date
           nutritional information at your fingertips.
         </PicCard>
+        <Spacer/>
         <PicCard
           img={"images/pexels-kate-trifo-4024914.jpg"}
           alt={""}
@@ -68,6 +60,7 @@ export const Home: FC = () => {
           Saving you more time to put towards any other focus towards your goal
           of a healthy lifestyle.
         </PicCard>
+        <Spacer />
       </HStack>
     </>
   );
