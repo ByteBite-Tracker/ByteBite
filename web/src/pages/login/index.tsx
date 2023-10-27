@@ -21,19 +21,18 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { FC, useState } from "react";
-import { SignupForm } from "./signup";
+import { SignupForm } from "@/components/forms/signup";
 
-export const Login: FC = () => {
+export const LoginReq: FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Flex align={"center"} justify={"center"}>
+    <Flex align={"center"} justify={"center"} height="89vh">
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"} textAlign={"center"}>
-            Login
+            Please Login To Use This Feature
           </Heading>
-          <Text fontSize={"lg"}>to continue reaching your goals</Text>
         </Stack>
         <Box
           rounded={"lg"}
@@ -103,3 +102,5 @@ export const Login: FC = () => {
     </Flex>
   );
 };
+
+export default LoginReq;
