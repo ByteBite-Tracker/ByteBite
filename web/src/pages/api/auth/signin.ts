@@ -7,6 +7,7 @@ export default function handler(req, res) {
         }
         const body = JSON.parse(JSON.stringify(req.body))
         const user = Users.find((user) => user.email === body.email && user.password === parseInt(body.password));
+        console.log('user', body)
         if (!user) {
             res.status(404).send({ message: 'User does not exit!' })
             return
