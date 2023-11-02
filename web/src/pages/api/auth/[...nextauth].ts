@@ -16,14 +16,12 @@ export const authOptions = {
           authorize: async (credentials) => {
             const user = Users.find(
               (user) => {
-                console.log(user.email, credentials.email)
-                console.log(user.password, credentials.password)
                 return (user.email === credentials.email &&
                 user.password === credentials.password)
 
               }
               );
-              console.log(!!user)
+              
             if (user) {
               // Any object returned will be saved in `user` object of the session
               return Promise.resolve({
