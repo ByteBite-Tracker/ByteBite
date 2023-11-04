@@ -3,11 +3,12 @@ import Home from "@/components/ui/home";
 import { FC } from "react";
 import { useSession } from "next-auth/react"
 import Dashboard from "@/components/ui/dashboard";
+import AddFoodItem from "@/components/forms/add-food";
 
 export const App: FC = () => {
-const testing = true; 
+const testing = false;
   if(testing) {
-    return <Account />;
+    return <AddFoodItem />;
   } else {
      const {status} = useSession();
      if(status == 'authenticated') return <Dashboard />
