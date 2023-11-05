@@ -53,7 +53,7 @@ export const UpdateSect:FC = () => {
         </CardBody>
       </Card>
     </Center>
-  )
-}
+  );
+};
 
 export default UpdateSect;

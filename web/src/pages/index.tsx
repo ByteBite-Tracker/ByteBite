@@ -10,10 +10,9 @@ const testing = false;
   if(testing) {
     return <AddFoodItem />;
   } else {
-     const {status} = useSession();
-     if(status == 'authenticated') return <Dashboard />
-     else return <Home />;
-  } 
+    if(status == 'authenticated') return <Dashboard />;
+    else return <Home />;
+  }
 };
 
 export default App;
