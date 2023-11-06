@@ -1,27 +1,22 @@
-import React, { FC, useState } from "react";
+import React, { FC } from 'react';
 import {
-  Flex,
-  useDisclosure,
   Heading,
   Stack,
   Avatar,
   Box,
-  Button,
-  Input,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
   Text,
-  Spacer,
   Select,
   Textarea,
-  SimpleGrid,
-} from "@chakra-ui/react";
+  SimpleGrid
+} from '@chakra-ui/react';
 
 export const Account: FC = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [avatarURL, setAvatarURL] = useState();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+  // const [avatarURL, setAvatarURL] = useState();
 
   return (
     <>
@@ -32,7 +27,7 @@ export const Account: FC = () => {
               Profile Settings
             </Heading>
             <Stack>
-              <Avatar size={"lg"} />
+              <Avatar size={'lg'} />
             </Stack>
           </CardHeader>
           <CardBody>
