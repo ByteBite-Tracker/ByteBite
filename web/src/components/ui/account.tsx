@@ -40,6 +40,9 @@ export const Account: FC = () => {
             <Heading size="md" padding={2}>
               Profile Settings
             </Heading>
+            <Stack>
+              <Avatar size={"lg"} />
+            </Stack>
           </CardHeader>
           <CardBody>
             <SimpleGrid columns={2} spacing={5}>
@@ -78,7 +81,7 @@ export const Account: FC = () => {
           </CardBody>
           <CardFooter>
             <Button variant="outline" alignSelf="flex-end">
-              Edit
+              Edit Edit
             </Button>
           </CardFooter>
         </Card>
@@ -147,10 +150,10 @@ export const Account: FC = () => {
             </SimpleGrid>
           </CardBody>
           <CardFooter></CardFooter>
+          <CardFooter></CardFooter>
         </Card>
       </Box>
     </>
   );
 };
-
 export default Account;
