@@ -20,9 +20,13 @@ import {
   ModalContent,
   ModalOverlay,
   useDisclosure,
+  Editable,
+  EditableInput,
+  EditablePreview,
 } from "@chakra-ui/react";
 import { SignupForm } from "../forms/signup";
 import { ChangePassword } from "../forms/change-password";
+import EditableControls from "@/pages/shared/edit-textbox";
 
 export const Account: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -40,9 +44,6 @@ export const Account: FC = () => {
             <Heading size="md" padding={2}>
               Profile Settings
             </Heading>
-            <Stack>
-              <Avatar size={"lg"} />
-            </Stack>
           </CardHeader>
           <CardBody>
             <SimpleGrid columns={2} spacing={5}>
@@ -61,6 +62,18 @@ export const Account: FC = () => {
                   variant="outline"
                 />
               </Box>
+              <Editable
+                textAlign="center"
+                defaultValue="Change"
+                fontSize="2xl"
+                isPreviewFocusable={false}
+              >
+                <EditablePreview />
+
+                <Input as={EditableInput} />
+                <EditableControls />
+              </Editable>
+
               <Box pb={5}>
                 <Text>Weight</Text>
                 <Input
@@ -81,7 +94,7 @@ export const Account: FC = () => {
           </CardBody>
           <CardFooter>
             <Button variant="outline" alignSelf="flex-end">
-              Edit Edit
+              Edit
             </Button>
           </CardFooter>
         </Card>
