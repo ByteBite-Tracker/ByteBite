@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC } from "react";
 import {
   Heading,
   Stack,
@@ -11,12 +11,26 @@ import {
   Text,
   Select,
   Textarea,
-  SimpleGrid
-} from '@chakra-ui/react';
+  SimpleGrid,
+  Button,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalOverlay,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { SignupForm } from "../forms/signup";
+import { ChangePassword } from "../forms/change-password";
 
 export const Account: FC = () => {
-  // const { isOpen, onOpen, onClose } = useDisclosure();
-  // const [avatarURL, setAvatarURL] = useState();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: passwordModalOpen,
+    onOpen: openPasswordModal,
+    onClose: closePasswordModal,
+  } = useDisclosure();
 
   return (
     <>
@@ -26,9 +40,6 @@ export const Account: FC = () => {
             <Heading size="md" padding={2}>
               Profile Settings
             </Heading>
-            <Stack>
-              <Avatar size={'lg'} />
-            </Stack>
           </CardHeader>
           <CardBody>
             <SimpleGrid columns={2} spacing={5}>
@@ -67,7 +78,7 @@ export const Account: FC = () => {
           </CardBody>
           <CardFooter>
             <Button variant="outline" alignSelf="flex-end">
-              Save
+              Edit
             </Button>
           </CardFooter>
         </Card>
@@ -115,15 +126,27 @@ export const Account: FC = () => {
                 />
               </Box>
               <Box pb={5}>
-                <Button variant="outline">Change Password</Button>
+                <Button variant="outline" onClick={openPasswordModal}>
+                  Change Password
+                </Button>
               </Box>
+              <Modal
+                isCentered
+                onClose={closePasswordModal}
+                isOpen={passwordModalOpen}
+                motionPreset="slideInBottom"
+              >
+                <ModalOverlay />
+                <ModalContent>
+                  <ModalCloseButton />
+                  <ModalBody>
+                    <ChangePassword />
+                  </ModalBody>
+                </ModalContent>
+              </Modal>
             </SimpleGrid>
           </CardBody>
-          <CardFooter>
-            <Button variant="outline" alignSelf="flex-end">
-              Save
-            </Button>
-          </CardFooter>
+          <CardFooter></CardFooter>
         </Card>
       </Box>
     </>
