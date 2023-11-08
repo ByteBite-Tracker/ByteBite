@@ -24,6 +24,11 @@ export type Scalars = {
   Decimal: { input: any; output: any; }
 };
 
+export type CreateUser = {
+  __typename?: 'CreateUser';
+  users?: Maybe<UsersType>;
+};
+
 export type FoodItemMutation = {
   __typename?: 'FoodItemMutation';
   foodItem?: Maybe<FoodItemType>;
@@ -38,9 +43,22 @@ export type FoodItemType = {
   protein: Scalars['Decimal']['output'];
 };
 
+export type LoginUser = {
+  __typename?: 'LoginUser';
+  users?: Maybe<UsersType>;
+};
+
+export type LogoutUser = {
+  __typename?: 'LogoutUser';
+  success?: Maybe<Scalars['Boolean']['output']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createFoodItem?: Maybe<FoodItemMutation>;
+  createUser?: Maybe<CreateUser>;
+  loginUser?: Maybe<LoginUser>;
+  logoutUser?: Maybe<LogoutUser>;
 };
 
 
@@ -50,6 +68,21 @@ export type MutationCreateFoodItemArgs = {
   fat: Scalars['Decimal']['input'];
   name: Scalars['String']['input'];
   protein: Scalars['Decimal']['input'];
+};
+
+
+export type MutationCreateUserArgs = {
+  email: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  lastName: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
+};
+
+
+export type MutationLoginUserArgs = {
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
 };
 
 export type Query = {
@@ -73,7 +106,7 @@ export type UsersType = {
   id: Scalars['ID']['output'];
   info?: Maybe<Users_InfoType>;
   lastName: Scalars['String']['output'];
-  name: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
   password: Scalars['String']['output'];
   username: Scalars['String']['output'];
 };
@@ -102,11 +135,5 @@ export type CreateFoodItemMutationVariables = Exact<{
 
 export type CreateFoodItemMutation = { __typename?: 'Mutation', createFoodItem?: { __typename?: 'FoodItemMutation', foodItem?: { __typename?: 'FoodItemType', calories: number, carbs: any, fat: any, name: string, protein: any } | null } | null };
 
-export type Get_UsersQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type Get_UsersQuery = { __typename?: 'Query', allUsers?: Array<{ __typename?: 'UsersType', id: string, name: string, info?: { __typename?: 'Users_InfoType', goalWeight: any, height: number, startWeight: any } | null } | null> | null };
-
 
 export const CreateFoodItemDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateFoodItem"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"calories"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"carbs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Decimal"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"fat"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Decimal"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"protein"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Decimal"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createFoodItem"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"calories"},"value":{"kind":"Variable","name":{"kind":"Name","value":"calories"}}},{"kind":"Argument","name":{"kind":"Name","value":"carbs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"carbs"}}},{"kind":"Argument","name":{"kind":"Name","value":"fat"},"value":{"kind":"Variable","name":{"kind":"Name","value":"fat"}}},{"kind":"Argument","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"Argument","name":{"kind":"Name","value":"protein"},"value":{"kind":"Variable","name":{"kind":"Name","value":"protein"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"foodItem"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"calories"}},{"kind":"Field","name":{"kind":"Name","value":"carbs"}},{"kind":"Field","name":{"kind":"Name","value":"fat"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"protein"}}]}}]}}]}}]} as unknown as DocumentNode<CreateFoodItemMutation, CreateFoodItemMutationVariables>;
-export const Get_UsersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_USERS"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allUsers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"info"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"goalWeight"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"startWeight"}}]}}]}}]}}]} as unknown as DocumentNode<Get_UsersQuery, Get_UsersQueryVariables>;
