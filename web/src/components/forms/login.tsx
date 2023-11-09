@@ -17,7 +17,8 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  useDisclosure
+  useDisclosure,
+  useToast
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -26,15 +27,30 @@ import { SignupForm } from './signup';
 import { signIn } from 'next-auth/react';
 
 export const Login: FC = () => {
+  const [loginError, setLoginError] = useState(false);
+  const toast = useToast();
+
   const formik = useFormik({
     initialValues: {
       email: '',
       password: ''
     },
-    onSubmit: (values) => signIn('credentials', {
-      email: values.email,
-      password: values.password
-    })
+    onSubmit: async (values) => {
+      const response = await signIn('credentials', {
+        email: values.email,
+        password: values.password,
+        redirect: false
+      });
+      if(response?.error) {
+        setLoginError(true);
+        toast({
+          title: 'Invalid email or password',
+          status: 'error',
+          isClosable: true,
+          position: 'top'
+        });
+      }
+    }
   });
   const [showPassword, setShowPassword] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -55,7 +71,7 @@ export const Login: FC = () => {
         >
           <form onSubmit={formik.handleSubmit}>
             <Stack spacing={4}>
-              <FormControl isRequired>
+              <FormControl isRequired isInvalid={loginError}>
                 <FormLabel htmlFor="email">Email</FormLabel>
                 <Input
                   type="text"
@@ -65,7 +81,7 @@ export const Login: FC = () => {
                   name="email"
                 />
               </FormControl>
-              <FormControl isRequired>
+              <FormControl isRequired isInvalid={loginError}>
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <InputGroup>
                   <Input
