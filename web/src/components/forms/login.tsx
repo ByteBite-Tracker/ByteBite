@@ -12,18 +12,12 @@ import {
   Link,
   Stack,
   Text,
-  Modal,
-  ModalOverlay,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  useDisclosure,
   useToast
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { FC, useState } from 'react';
-import { SignupForm } from './signup';
+import NextLink from 'next/link';
 import { signIn } from 'next-auth/react';
 
 export const Login: FC = () => {
@@ -53,7 +47,6 @@ export const Login: FC = () => {
     }
   });
   const [showPassword, setShowPassword] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Flex align={'center'} justify={'center'}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
@@ -120,24 +113,10 @@ export const Login: FC = () => {
               <Stack pt={6}>
                 <Text align={'center'}>
                   Not a user?{' '}
-                  <Link color={'blue.400'} onClick={onOpen}>
+                  <Link as={NextLink} color={'blue.400'} href='./signup'>
                     Signup
                   </Link>
                 </Text>
-                <Modal
-                  isCentered
-                  onClose={onClose}
-                  isOpen={isOpen}
-                  motionPreset="slideInBottom"
-                >
-                  <ModalOverlay />
-                  <ModalContent>
-                    <ModalCloseButton />
-                    <ModalBody>
-                      <SignupForm />
-                    </ModalBody>
-                  </ModalContent>
-                </Modal>
               </Stack>
             </Stack>
           </form>

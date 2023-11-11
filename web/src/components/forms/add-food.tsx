@@ -49,7 +49,7 @@ export const AddFoodItem: FC = () => {
 
   const handleCreate = async (
     {calories, carbs, fat, name, protein }:MutationCreateFoodItemArgs,
-    { resetForm }:FormikHelpers<any> ): Promise<void>  => {
+    { resetForm }: FormikHelpers<any> ): Promise<void>  => {
     // Define the variables for your mutation
     const variables = {
       calories: calories,
@@ -135,7 +135,7 @@ export const AddFoodItem: FC = () => {
               </Box>
               <HStack>
                 <Box>
-                  <FormControl id="calories" isRequired>
+                  <FormControl isRequired>
                     <FormLabel htmlFor="calories">Calories</FormLabel>
                     <Input
                       type="text"
@@ -148,7 +148,7 @@ export const AddFoodItem: FC = () => {
                   </FormControl>
                 </Box>
                 <Box>
-                  <FormControl id="carbs" isRequired>
+                  <FormControl isRequired>
                     <FormLabel htmlFor="carbs">Carbs</FormLabel>
                     <Input
                       type="text"
@@ -163,7 +163,7 @@ export const AddFoodItem: FC = () => {
               </HStack>
               <HStack>
                 <Box>
-                  <FormControl id="protein" isRequired>
+                  <FormControl isRequired>
                     <FormLabel htmlFor="protein">Protein</FormLabel>
                     <Input
                       type="text"
@@ -176,7 +176,7 @@ export const AddFoodItem: FC = () => {
                   </FormControl>
                 </Box>
                 <Box>
-                  <FormControl id="fat" isRequired>
+                  <FormControl isRequired>
                     <FormLabel htmlFor="fat">Fat</FormLabel>
                     <Input
                       type="text"
