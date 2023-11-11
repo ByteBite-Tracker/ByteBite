@@ -7,13 +7,12 @@ import Dashboard from "@/components/ui/dashboard";
 import AddFoodItem from "@/components/forms/add-food";
 
 export const App: FC = () => {
-
-const testing = false;
-const {status} = useSession()
-  if(testing) {
+  const testing = false;
+  const { status } = useSession();
+  if (testing) {
     return <AddFoodItem />;
   } else {
-    if(status == 'unauthenticated') return <Dashboard />;
+    if (status == "unauthenticated") return <Account />;
     else return <Home />;
   }
 };

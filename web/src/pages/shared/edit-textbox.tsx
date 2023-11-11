@@ -38,14 +38,15 @@ function EditableControls() {
       />
     </ButtonGroup>
   ) : (
-    <Flex justifyContent="center">
-      <IconButton
-        aria-label="edit-textfield"
-        size="sm"
-        icon={<EditIcon />}
-        {...getEditButtonProps()}
-      />
-    </Flex>
+    // <Flex justifyContent="center">
+    <IconButton
+      aria-label="edit-textfield"
+      size="sm"
+      icon={<EditIcon />}
+      margin={"10px"}
+      {...getEditButtonProps()}
+    />
+    //</Flex>
   );
 }
 
