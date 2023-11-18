@@ -57,9 +57,8 @@ export const Navbar: FC = () => {
           </Box>
           <Flex gap={"20px"}>
             <NavbarLink page="Home" route="" />
-            <NavbarLink page="About Us" route="about" />
-
             <NavbarLink page="Calculator" route="calc" />
+            <NavbarLink page="About Us" route="about" />
             <NavbarLink page="Contact Us" route="contact" />
           </Flex>
           <Flex alignItems={"center"}>
