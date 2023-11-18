@@ -12,7 +12,7 @@ export const App: FC = () => {
   if (testing) {
     return <AddFoodItem />;
   } else {
-    if (status == "unauthenticated") return <SettingsPage />;
+    if (status == "unauthenticated") return <Dashboard />;
     else return <Home />;
   }
 };
