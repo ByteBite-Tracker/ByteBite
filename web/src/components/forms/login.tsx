@@ -117,7 +117,7 @@ export const Login: FC = () => {
                   <Stack pt={6}>
                     <Text align={'center'}>
                   Not a user?{' '}
-                      <Link as={NextLink} color={'blue.400'} href='/new-user'>
+                      <Link as={NextLink} color={'blue.400'} href='/new-user' >
                     Signup
                       </Link>
                     </Text>
