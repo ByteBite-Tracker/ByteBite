@@ -19,81 +19,34 @@ import {
   ModalBody,
   Modal,
   useDisclosure,
-  useToast,
   FormErrorMessage
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { FC, ReactElement, useState } from 'react';
 import { Login } from '../forms/login';
-import { Field, Formik, FormikHelpers } from 'formik';
-import { graphql } from '@/gql';
-import { useMutation } from 'urql';
-import { MutationCreateUserArgs } from '@/gql/graphql';
+import { Field, Formik } from 'formik';
 
-export const NewUser: FC = () => {
-  const CREATE_USER = graphql(`
-  mutation CreateUser($firstName: String!, $lastName: String!, $email: String!, $password: String!) {
-    createUser(email: $email, firstName: $firstName, lastName: $lastName, password: $password, username: $email) {
-    users {
-      email
-      firstName
-      lastName
-      password
-      username
-    }
-  }
+export interface AddUserProps {
+  handleAddUser: (userData: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    username: string;
+  }) => void;
 }
-`);
+
+
+export const AddUser: FC<AddUserProps> = ({ handleAddUser }) => {
 
   const [showPassword, setShowPassword] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [ , createUser] = useMutation(CREATE_USER);
-  const toast = useToast();
-
-
-  const handleSubmit = async (
-    {firstName, lastName, email, password}: MutationCreateUserArgs,
-    {resetForm}: FormikHelpers<any>): Promise<any> => {
-    // Execute the mutation
-    const response = await createUser(
-      {
-        //gql mutation name: form value
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password
-      });
-
-    if (response.error) {
-      // Handle the error
-      console.error('Error: ', response.error);
-      toast({
-        title: 'Error',
-        description: 'Something Went Wrong',
-        status: 'error',
-        duration: 9000,
-        isClosable: true
-      });
-    } else {
-      // Success! Handle the response
-      console.log('Item created', response.data?.createUser);
-      resetForm();
-      toast({
-        position: 'top',
-        title: 'Success',
-        description: `Welcome ${firstName} ${lastName}`,
-        status: 'success',
-        duration: 9000,
-        isClosable: true
-      });
-    }
-  };
 
   return (
     <Flex align={'center'} justify={'center'}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Heading fontSize={'4xl'} textAlign={'center'}>
-            Who Are You?
+            Welcome!
         </Heading>
         <Box
           rounded={'lg'}
@@ -109,7 +62,7 @@ export const NewUser: FC = () => {
               password: '',
               confirmPassword: ''
             }}
-            onSubmit={async (values, formikBag): Promise<any> => {
+            onSubmit={async (values): Promise<any> => {
               const variables = {
                 firstName: values.firstName,
                 lastName: values.lastName,
@@ -117,7 +70,7 @@ export const NewUser: FC = () => {
                 password: values.password,
                 username: values.email
               };
-              handleSubmit(variables, formikBag);}}
+              handleAddUser(variables);}}
             >
               {({handleSubmit, errors, isValid, touched, values}): ReactElement => (
                 <form onSubmit={handleSubmit}>
@@ -210,7 +163,7 @@ export const NewUser: FC = () => {
                       _hover={{bg: 'blue.500'}}
                       type='submit'
                     >
-                Sign up
+                Continue
                     </Button>
                   </Stack>
                   <Stack pt={6}>
@@ -245,4 +198,4 @@ export const NewUser: FC = () => {
   );
 };
 
-export default NewUser;
+export default AddUser;

@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { graphql } from '@/gql';
 import { cacheExchange, createClient, fetchExchange } from 'urql';
+import { LOGIN_USER } from '@/gql/mutation-login';
 
 export const authOptions = {
   secret: process.env.NextAuth_SECRET,
@@ -21,30 +21,39 @@ export const authOptions = {
           exchanges: [cacheExchange, fetchExchange]
         });
 
-        const GET_USER = graphql(`
-          query GET_USER($email: String!, $password: String!) {
-            user(email: $email, password: $password) {
-              id
-              email
-              password
-              firstName
-              lastName
-            }
-          }
-        `);
+        // const LOGIN_USER = graphql(`
+        //   mutation LoginUser($password: String!, $username: String!) {
+        //     loginUser(password: $password, username: $username) {
+        //       users {
+        //         id
+        //         email
+        //         firstName
+        //         lastName
+        //         password
+        //       }
+        //     }
+        //   }
+        // `);
 
         try {
-          const variables = {
-            email: credentials?.email,
-            password: credentials?.password
-          };
+          console.log('Vars: ', credentials?.password,  credentials?.email);
+          const variables = (credentials?.password && credentials?.email) ?
+            {
+              password: credentials?.password,
+              username: credentials?.email
+            } :
+            {
+              password: '',
+              username: ''
+            };
 
-          const result = await client.query(GET_USER, variables).toPromise();
+          const result = await client.mutation(LOGIN_USER, variables).toPromise();
           if (result.error) {
             throw new Error(result.error.message);
           }
 
-          const user = result.data.user;
+          const user = result.data?.loginUser.users;
+          console.log(user);
           if (user) {
             return {
               id: user.id,

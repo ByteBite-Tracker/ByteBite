@@ -8,14 +8,23 @@ import { Box,
   Radio,
   RadioGroup,
   Stack,
-  useColorModeValue } from '@chakra-ui/react';
+  useColorModeValue} from '@chakra-ui/react';
 import { Field, FieldProps, Formik } from 'formik';
 import { FC, ReactElement } from 'react';
 
-export const UserDetails: FC = () => {
-  const handleSubmit = async (values) => {
-    console.log(values);
-  };
+interface UserDetailProps {
+  handleUserDetails: (userData: {
+    gender: string;
+    age: number;
+    height: number;
+    weight: number;}) => void;
+}
+
+
+
+export const UserDetails: FC<UserDetailProps> = ({handleUserDetails}) => {
+  //const [ , createUserDetails] = useMutation(CREATE_USER_DETAILS);
+
   return (
     <Flex align={'center'} justify={'center'}>
       <Stack spacing={8} mx={'auto'} py={12} px={6}>
@@ -29,13 +38,13 @@ export const UserDetails: FC = () => {
           p={8}>
           <Formik initialValues={{
             gender: '',
-            age: '',
-            height: '',
-            weight: ''
+            age: 0,
+            height: 0,
+            weight: 0
           }}
-          onSubmit={async (values): Promise<any> => handleSubmit(values)}
+          onSubmit={async (values): Promise<any> => handleUserDetails(values)}
           >
-            {({handleSubmit, errors, isValid, touched, values}): ReactElement => (
+            {({handleSubmit}): ReactElement => (
               <form onSubmit={handleSubmit}>
                 <Stack spacing={8}>
                   <HStack spacing={20}>

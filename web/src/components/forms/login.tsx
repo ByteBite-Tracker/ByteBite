@@ -19,8 +19,10 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { FC, useState } from 'react';
 import NextLink from 'next/link';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 export const Login: FC = () => {
+  const router = useRouter();
   const [loginError, setLoginError] = useState(false);
   const toast = useToast();
 
@@ -110,14 +112,17 @@ export const Login: FC = () => {
                   Login
                 </Button>
               </Stack>
-              <Stack pt={6}>
-                <Text align={'center'}>
+              {
+                router.route === '/new-user' ? <></> :
+                  <Stack pt={6}>
+                    <Text align={'center'}>
                   Not a user?{' '}
-                  <Link as={NextLink} color={'blue.400'} href='./signup'>
+                      <Link as={NextLink} color={'blue.400'} href='/new-user'>
                     Signup
-                  </Link>
-                </Text>
-              </Stack>
+                      </Link>
+                    </Text>
+                  </Stack>
+              }
             </Stack>
           </form>
         </Box>
