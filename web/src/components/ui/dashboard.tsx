@@ -1,3 +1,4 @@
+
 import {
   Box,
   Heading,
@@ -5,6 +6,7 @@ import {
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
+
 
 import { FC } from "react";
 import { ProgessCard } from "./progress-card";
@@ -17,6 +19,7 @@ export const Dashboard: FC = () => {
   const goal: number = 100;
 
   return (
+
     <Box
       bg={useColorModeValue("gray.200", "black.200")}
       pt={{ base: "130px", md: "80px", xl: "80px" }}
@@ -43,6 +46,7 @@ export const Dashboard: FC = () => {
           goal={goal}
           color="orange.400"
         />
+
       </SimpleGrid>
       <UpdateSect />
     </Box>
