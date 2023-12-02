@@ -93,7 +93,11 @@ export const Navbar: FC = () => {
                 <MenuList>
                   {status === "authenticated" ? (
                     <>
-                      <Heading size={"md"} textAlign={"center"}>
+                      <Heading
+                        size={"md"}
+                        textAlign={"center"}
+                        paddingBottom={"10px"}
+                      >
                         {data.user?.name}
                       </Heading>
                       <hr />
