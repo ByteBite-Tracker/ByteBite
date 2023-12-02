@@ -1,7 +1,7 @@
 import AddUser from '@/components/stepper-items/create-user';
 import UserDetails from '@/components/stepper-items/user-details';
 import { graphql } from '@/gql';
-import { MutationCreateUserArgs } from '@/gql/graphql';
+import { MutationCreateUserArgs, MutationCreateUsersInfoArgs } from '@/gql/graphql';
 import {
   Box,
   Flex,
@@ -32,37 +32,72 @@ const CREATE_USER = graphql(`
         firstName
         lastName
         username
+        info {
+          age
+          height,
+          weight,
+          gender
+        }
       }
     }
   }
 `);
 
-// const CREATE_USER_DETAILS = graphql(`
-//   mutation CreateUserDetails($firstName: String!, $lastName: String!, $email: String!, $password: String!) {
-//     createUser(email: $email, firstName: $firstName, lastName: $lastName, password: $password, username: $email) {
-//       user {
-//       info {
-//         age
-//         height
-//         weight
-//       }
-//     }
-//   }
-// }
-// `);
+const CREATE_USER_DETAILS = graphql(`
+  mutation CreateUserDetails(
+      $username: String!,
+      $password: String!
+      $age: Int!, 
+      $dailyCalories: Int!, 
+      $gender: String!, 
+      $goalWeight: Float!,
+      $height: Int!,
+      $weight: Float!) 
+    {
+      loginUser(password: $password, username: $username) {
+        message
+        success
+        user {
+          email
+          id
+          firstName
+          lastName
+          username
+        }
+      }
+      createUsersInfo(
+        age: $age
+        dailyCalories: $dailyCalories
+        gender: $gender
+        goalWeight: $goalWeight
+        height: $height
+        weight: $weight
+    ) 
+    {
+      usersInfo {
+        age
+        dailyCalories
+        gender
+        goalWeight
+        height
+        weight
+      }
+    }
+  }
+`);
 
 export const NewUser: FC = () => {
   const [ , createUser] = useMutation(CREATE_USER);
+  const [ , createInfo] = useMutation(CREATE_USER_DETAILS);
   const toast = useToast();
   const { activeStep, setActiveStep } = useSteps({
     index: 0,
     count: steps.length
   });
   const newUser = {
-    email: '',
+    username: '',
     password: ''
   };
-
   const handleAddUser = async (
     {
       firstName,
@@ -71,6 +106,8 @@ export const NewUser: FC = () => {
       password
     }: MutationCreateUserArgs): Promise<any> => {
     // Execute the mutation
+    newUser.password = password;
+    newUser.username = email;
     const response = await createUser(
       {
         //gql mutation name: form value
@@ -91,23 +128,36 @@ export const NewUser: FC = () => {
         isClosable: true
       });
     } else {
+      await signIn('credentials', {
+        email: email,
+        password: password,
+        redirect: false
+      });
+
       setActiveStep(1);
     }
   };
 
   const handleUserDetails = async (
     {
-      gender,
       age,
+      dailyCalories,
+      gender,
+      goalWeight,
       height,
       weight
-    }: UserDetailProps): Promise<any> => {
+    }: MutationCreateUsersInfoArgs): Promise<any> => {
+    console.log('here');
     // Execute the mutation
-    const response = await createUserDetails(
+    const response = await createInfo(
       {
         //gql mutation name: form value
-        gender: gender,
+        username: newUser.username,
+        password: newUser.password,
         age: age,
+        dailyCalories: dailyCalories,
+        gender: gender,
+        goalWeight: goalWeight,
         height: height,
         weight: weight
       });
@@ -123,11 +173,9 @@ export const NewUser: FC = () => {
         isClosable: true
       });
     } else {
-      await signIn('credentials', {
-        email: newUser.email,
-        password: newUser.password,
-        redirect: false
-      });
+      console.log('we did it');
+
+
     }
   };
 
