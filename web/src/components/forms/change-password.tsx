@@ -27,31 +27,31 @@ import { Login } from "./login";
 import { FormikHelpers, useFormik } from "formik";
 import { graphql } from "@/gql";
 
-const CHANGE_PASSWORD = graphql(`
-  mutation ChangePassword(
-    $calories: Int!
-    $carbs: Decimal!
-    $fat: Decimal!
-    $name: String!
-    $protein: Decimal!
-  ) {
-    changePassword(
-      calories: $calories
-      carbs: $carbs
-      fat: $fat
-      name: $name
-      protein: $protein
-    ) {
-      foodItem {
-        calories
-        carbs
-        fat
-        name
-        protein
-      }
-    }
-  }
-`);
+// const CHANGE_PASSWORD = graphql(`
+//   mutation ChangePassword(
+//     $calories: Int!
+//     $carbs: Decimal!
+//     $fat: Decimal!
+//     $name: String!
+//     $protein: Decimal!
+//   ) {
+//     changePassword(
+//       calories: $calories
+//       carbs: $carbs
+//       fat: $fat
+//       name: $name
+//       protein: $protein
+//     ) {
+//       foodItem {
+//         calories
+//         carbs
+//         fat
+//         name
+//         protein
+//       }
+//     }
+//   }
+// `);
 
 type ChangePasswordProps = { closeModal: () => void };
 export const ChangePassword: FC<ChangePasswordProps> = ({ closeModal }) => {

@@ -1,3 +1,5 @@
+import { graphql } from "@/gql";
+import { UpdateUsersInfoMutationVariables } from "@/gql/graphql";
 import EditableControls from "@/pages/shared/edit-textbox";
 import {
   Card,
@@ -18,16 +20,100 @@ import {
 import { FormikHelpers, useFormik } from "formik";
 
 import React, { useState } from "react";
+import { useMutation } from "urql";
+import { signOut, useSession } from "next-auth/react";
+
+const UPDATE_SETTINGS = graphql(`
+  mutation UpdateUsersInfo(
+    $age: Int!
+    $dailyCalories: Int!
+    $gender: String!
+    $goalWeight: Float!
+    $height: Int!
+    $weight: Float!
+  ) {
+    updateUsersInfo(
+      age: $age
+      dailyCalories: $dailyCalories
+      gender: $gender
+      goalWeight: $goalWeight
+      height: $height
+      weight: $weight
+    ) {
+      usersInfo {
+        age
+        dailyCalories
+        gender
+        goalWeight
+        height
+        weight
+      }
+    }
+  }
+`);
 
 export const ProfileSettings = () => {
+  useSession();
   const [editMode, setEditMode] = useState(false);
   const caloricGoal = "userCaloricGoal";
   const displayUserWeight = "Your Weight";
+
+  const [, updateSettings] = useMutation(UPDATE_SETTINGS);
+  // const handleCreate = async (
+  //   values: any,
+  //   { resetForm }: FormikHelpers<any>
+  // ) => {
+  //   setEditMode(false);
+  // };
+
   const handleCreate = async (
-    values: any,
+    {
+      age,
+      goalWeight,
+      gender,
+      weight,
+      height,
+      dailyCalories,
+    }: UpdateUsersInfoMutationVariables,
     { resetForm }: FormikHelpers<any>
-  ) => {
+  ): Promise<void> => {
+    // Define the variables for your mutation
+    const variables = {
+      age,
+      dailyCalories,
+      gender,
+      goalWeight,
+      height,
+      weight,
+    };
     setEditMode(false);
+
+    // Execute the mutation
+    const response = await updateSettings(variables);
+
+    // if (response.error) {
+    //   // Handle the error
+    //   console.error("Error: ", response.error);
+    //   toast({
+    //     title: "Error",
+    //     description: "There was an error creating the food item.",
+    //     status: "error",
+    //     duration: 9000,
+    //     isClosable: true,
+    //   });
+    // } else {
+    //   // Success! Handle the response
+    //   console.log("Item created", response.data?.createFoodItem);
+    //   resetForm();
+    //   toast({
+    //     position: "top",
+    //     title: "Success",
+    //     description: "Food item added successfully!",
+    //     status: "success",
+    //     duration: 9000,
+    //     isClosable: true,
+    //   });
+    // }
   };
 
   const formik = useFormik({
@@ -42,9 +128,10 @@ export const ProfileSettings = () => {
       const parsedVals = {
         ...values,
         weight: parseInt(values.weight),
-        goal_weight: parseInt(values.goal_weight),
+        goalWeight: parseInt(values.goal_weight),
         height: parseInt(values.height),
         age: parseInt(values.age),
+        dailyCalories: 1234,
       };
       handleCreate(parsedVals, formikBag);
     },
