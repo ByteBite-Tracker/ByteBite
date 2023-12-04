@@ -118,11 +118,18 @@ export const Navbar: FC = () => {
                     </>
                   ) : (
                     <>
-                      <MenuItem pl={"20px"} onClick={openLoginModal}>
+                      <MenuItem
+                        pl={"20px"}
+                        pb="10px"
+                        pt="10px"
+                        onClick={openLoginModal}
+                      >
                         Login
                       </MenuItem>
                       <MenuItem
                         pl={"20px"}
+                        pb="10px"
+                        pt="10px"
                         onClick={(): Promise<boolean> =>
                           router.push("/new-user")
                         }
