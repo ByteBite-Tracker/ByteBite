@@ -12,59 +12,83 @@ import {
   useColorModeValue,
   Link,
   Stack,
-  Text,
-  ModalOverlay,
-  ModalContent,
-  ModalCloseButton,
-  ModalBody,
-  Modal,
-  useDisclosure,
   FormErrorMessage,
+  useToast,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { FC, useState } from "react";
-import { Login } from "./login";
-import { FormikHelpers, useFormik } from "formik";
+import { useFormik } from "formik";
 import { graphql } from "@/gql";
+import { useSession } from "next-auth/react";
+import { MutationChangePasswordArgs } from "@/gql/graphql";
+import { useMutation } from "urql";
 
-// const CHANGE_PASSWORD = graphql(`
-//   mutation ChangePassword(
-//     $calories: Int!
-//     $carbs: Decimal!
-//     $fat: Decimal!
-//     $name: String!
-//     $protein: Decimal!
-//   ) {
-//     changePassword(
-//       calories: $calories
-//       carbs: $carbs
-//       fat: $fat
-//       name: $name
-//       protein: $protein
-//     ) {
-//       foodItem {
-//         calories
-//         carbs
-//         fat
-//         name
-//         protein
-//       }
-//     }
-//   }
-// `);
+const CHANGE_PASSWORD = graphql(`
+  mutation ChangePassword(
+    $email: String!
+    $newPassword: String!
+    $oldPassword: String!
+  ) {
+    changePassword(
+      email: $email
+      newPassword: $newPassword
+      oldPassword: $oldPassword
+    ) {
+      user {
+        id
+        email
+        firstName
+      }
+    }
+  }
+`);
 
-type ChangePasswordProps = { closeModal: () => void };
+interface ChangePasswordProps {
+  closeModal: () => void;
+}
 export const ChangePassword: FC<ChangePasswordProps> = ({ closeModal }) => {
+  const { data } = useSession();
+  const [, changePassword] = useMutation(CHANGE_PASSWORD);
+  const toast = useToast();
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleCreate = async (
-    values: any,
-    { resetForm }: FormikHelpers<any>
-  ) => {
-    console.log("Enter Here");
-    closeModal();
+  const handleCreate = async ({
+    email,
+    oldPassword,
+    newPassword,
+  }: MutationChangePasswordArgs): Promise<any> => {
+    const values = {
+      email,
+      oldPassword,
+      newPassword,
+    };
+    const response = await changePassword(values);
+
+    if (response.error) {
+      // Handle the error
+      console.error("Error: ", response.error);
+      toast({
+        title: "Error",
+        description: "There was an error changing your password.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    } else {
+      // Success! Handle the response
+      console.log("Item created", response.data?.createFoodItem);
+      closeModal();
+      toast({
+        position: "top",
+        title: "Success",
+        description: "Password Changed Successfully!",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
   };
 
   const formik = useFormik({
@@ -73,20 +97,19 @@ export const ChangePassword: FC<ChangePasswordProps> = ({ closeModal }) => {
       new_password: "",
       confirm_password: "",
     },
-    onSubmit: (values, formikBag) => {
-      handleCreate(values, formikBag);
+    onSubmit: (values) => {
+      const variables = {
+        email: data?.user?.email ?? "",
+        oldPassword: values.old_password,
+        newPassword: values.new_password,
+      };
+      handleCreate(variables);
     },
   });
 
   return (
     <Flex align={"center"} justify={"center"}>
-      <form
-        id="change_password_form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          formik.handleSubmit();
-        }}
-      >
+      <form id="change_password_form" onSubmit={formik.handleSubmit}>
         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>
             <Heading fontSize={"4xl"} textAlign={"center"}>
