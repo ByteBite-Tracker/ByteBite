@@ -78,7 +78,7 @@ export const ChangePassword: FC<ChangePasswordProps> = ({ closeModal }) => {
       });
     } else {
       // Success! Handle the response
-      console.log("Item created", response.data?.createFoodItem);
+
       closeModal();
       toast({
         position: "top",

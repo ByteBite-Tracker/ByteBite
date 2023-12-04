@@ -20,37 +20,37 @@ import React, { useEffect, useState } from "react";
 import { gql, useMutation, useQuery } from "urql";
 import { signOut, useSession } from "next-auth/react";
 
-const UPDATE_SETTINGS = graphql(`
-  mutation UpdateUsersInfo(
-    $age: Int!
-    $dailyCalories: Int!
-    $gender: String!
-    $goalWeight: Float!
-    $height: Int!
-    $weight: Float!
-  ) {
-    updateUsersInfo(
-      age: $age
-      dailyCalories: $dailyCalories
-      gender: $gender
-      goalWeight: $goalWeight
-      height: $height
-      weight: $weight
-    ) {
-      usersInfo {
-        age
-        dailyCalories
-        gender
-        goalWeight
-        height
-        weight
-      }
-    }
-  }
-`);
+// const UPDATE_SETTINGS = graphql(`
+//   mutation UpdateUsersInfo(
+//     $age: Int!
+//     $dailyCalories: Int!
+//     $gender: String!
+//     $goalWeight: Float!
+//     $height: Int!
+//     $weight: Float!
+//   ) {
+//     updateUsersInfo(
+//       age: $age
+//       dailyCalories: $dailyCalories
+//       gender: $gender
+//       goalWeight: $goalWeight
+//       height: $height
+//       weight: $weight
+//     ) {
+//       usersInfo {
+//         age
+//         dailyCalories
+//         gender
+//         goalWeight
+//         height
+//         weight
+//       }
+//     }
+//   }
+// `);
 
 const USER_INFO = gql`
-  query UserInfo($email: String!) {
+  query UserProfileInfo($email: String!) {
     userInfoByEmail(email: $email) {
       age
       dailyCalories
@@ -74,7 +74,7 @@ export const ProfileSettings = () => {
     pause: !userEmail,
   });
   const [editMode, setEditMode] = useState(false);
-  const [, updateSettings] = useMutation(UPDATE_SETTINGS);
+  //const [, updateSettings] = useMutation(UPDATE_SETTINGS);
 
   useEffect(() => {
     if (userEmail) {
@@ -112,30 +112,6 @@ export const ProfileSettings = () => {
 
     // Execute the mutation
     const response = await updateSettings(variables);
-
-    // if (response.error) {
-    //   // Handle the error
-    //   console.error("Error: ", response.error);
-    //   toast({
-    //     title: "Error",
-    //     description: "There was an error creating the food item.",
-    //     status: "error",
-    //     duration: 9000,
-    //     isClosable: true,
-    //   });
-    // } else {
-    //   // Success! Handle the response
-    //   console.log("Item created", response.data?.createFoodItem);
-    //   resetForm();
-    //   toast({
-    //     position: "top",
-    //     title: "Success",
-    //     description: "Food item added successfully!",
-    //     status: "success",
-    //     duration: 9000,
-    //     isClosable: true,
-    //   });
-    // }
   };
 
   const formik = useFormik({
@@ -266,7 +242,7 @@ export const ProfileSettings = () => {
                 <Box>
                   <Text as="b">Caloric Goal</Text>
                   <Input
-                    value={formik.values.calories}
+                    value={data?.userInfoByEmail.dailyCalories}
                     isReadOnly={true}
                     variant="outline"
                   />
@@ -277,7 +253,7 @@ export const ProfileSettings = () => {
                   <Input
                     type="text"
                     onChange={formik.handleChange}
-                    value={formik.values.weight}
+                    value={data?.userInfoByEmail.weight}
                     id="weight"
                     name="weight"
                     placeholder="Your Weight"
@@ -290,7 +266,7 @@ export const ProfileSettings = () => {
                   <Input
                     type="text"
                     onChange={formik.handleChange}
-                    value={formik.values.goal_weight}
+                    value={data?.userInfoByEmail.goalWeight}
                     id="goal_weight"
                     name="goal_weight"
                     placeholder="Your Weight Goal"
@@ -303,7 +279,7 @@ export const ProfileSettings = () => {
                   <Input
                     type="text"
                     onChange={formik.handleChange}
-                    value={formik.values.height}
+                    value={data?.userInfoByEmail.height}
                     id="height"
                     name="height"
                     placeholder="Your Height"
@@ -316,7 +292,7 @@ export const ProfileSettings = () => {
                   <Input
                     type="text"
                     onChange={formik.handleChange}
-                    value={formik.values.age}
+                    value={data?.userInfoByEmail.age}
                     id="age"
                     name="age"
                     placeholder="Age"
