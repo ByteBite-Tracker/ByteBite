@@ -1,7 +1,6 @@
 import { graphql } from '@/gql';
 import { useMutation  } from 'urql';
 import {FC} from 'react';
-import {MutationCreateFoodItemArgs} from '@/gql/graphql';
 import {
   Box,
   Button,
@@ -9,77 +8,70 @@ import {
   FormControl,
   FormLabel,
   Heading,
-  HStack,
   Input,
   Stack,
   useColorModeValue,
   useToast
 } from '@chakra-ui/react';
 import {FormikHelpers, useFormik} from 'formik';
+import { useSession } from 'next-auth/react';
 
 const UPDATE_WEIGHT = graphql(`
   mutation UpdateWeight(
-    $calories: Int!
-    $carbs: Decimal!
-    $fat: Decimal!
-    $name: String!
-    $protein: Decimal!
+    $email: String!
+    $weight: Float!
   ) {
-    createFoodItem(
-      calories: $calories
-      carbs: $carbs
-      fat: $fat
-      name: $name
-      protein: $protein
+    updateUsersInfo(
+      email: $email
+      weight: $weight
+      age: null 
+      dailyCalories: null 
+      gender: null 
+      goalWeight: null
+      height: null
     ) {
-      foodItem {
-        calories
-        carbs
-        fat
-        name
-        protein
+      usersInfo {
+        weight
       }
     }
   }
 `);
 
-export const AddFoodItem: FC = () => {
+export const UpdateWeight: FC = () => {
+  const { data: sessionData } = useSession();
+  const userEmail = sessionData?.user?.email;
   const toast = useToast();
-  const [ , updateWeight] = useMutation(MAKE_ITEM);
+  const [ , updateWeight] = useMutation(UPDATE_WEIGHT);
 
   const handleCreate = async (
-    {calories, carbs, fat, name, protein }:MutationCreateFoodItemArgs,
+    {newWeight}: {newWeight: number;},
     { resetForm }: FormikHelpers<any> ): Promise<void>  => {
-    // Define the variables for your mutation
+
     const variables = {
-      calories: calories,
-      carbs: carbs,
-      fat: fat,
-      name: name,
-      protein: protein
+      email: userEmail ?? '',
+      weight: newWeight
     };
 
     // Execute the mutation
-    const response = await createItem(variables);
+    const response = await updateWeight(variables);
 
     if (response.error) {
       // Handle the error
       console.error('Error: ', response.error);
       toast({
         title: 'Error',
-        description: 'There was an error creating the food item.',
+        description: 'There was an error updating your weight.',
         status: 'error',
         duration: 9000,
         isClosable: true
       });
     } else {
       // Success! Handle the response
-      console.log('Item created', response.data?.createFoodItem);
       resetForm();
       toast({
         position: 'top',
         title: 'Success',
-        description: 'Food item added successfully!',
+        description: 'Weight Successfully Updated!',
         status: 'success',
         duration: 9000,
         isClosable: true
@@ -89,7 +81,7 @@ export const AddFoodItem: FC = () => {
 
   const formik = useFormik({
     initialValues: {
-      newWeight: null
+      newWeight: 0
     },
     onSubmit: (values, formikBag) => {
       handleCreate(values, formikBag);
@@ -114,76 +106,19 @@ export const AddFoodItem: FC = () => {
             <Stack spacing={4}>
               <Box>
                 <FormControl isRequired>
-                  <FormLabel htmlFor="name">Item</FormLabel>
+                  <FormLabel htmlFor="newWeight">New Weight</FormLabel>
                   <Input
-                    type="text"
+                    type="number"
                     onChange={formik.handleChange}
-                    value={formik.values.name}
-                    id="name"
-                    name="name"
-                    placeholder="Pizza..."
+                    value={formik.values.newWeight}
+                    id="newWeight"
+                    name="newWeight"
                   />
                 </FormControl>
               </Box>
-              <HStack>
-                <Box>
-                  <FormControl isRequired>
-                    <FormLabel htmlFor="calories">Calories</FormLabel>
-                    <Input
-                      type="text"
-                      onChange={formik.handleChange}
-                      value={formik.values.calories}
-                      id="calories"
-                      name="calories"
-                      placeholder="200"
-                    />
-                  </FormControl>
-                </Box>
-                <Box>
-                  <FormControl isRequired>
-                    <FormLabel htmlFor="carbs">Carbs</FormLabel>
-                    <Input
-                      type="text"
-                      onChange={formik.handleChange}
-                      value={formik.values.carbs}
-                      id="carbs"
-                      name="carbs"
-                      placeholder="10.40"
-                    />
-                  </FormControl>
-                </Box>
-              </HStack>
-              <HStack>
-                <Box>
-                  <FormControl isRequired>
-                    <FormLabel htmlFor="protein">Protein</FormLabel>
-                    <Input
-                      type="text"
-                      onChange={formik.handleChange}
-                      value={formik.values.protein}
-                      id="protein"
-                      name="protein"
-                      placeholder="32.00"
-                    />
-                  </FormControl>
-                </Box>
-                <Box>
-                  <FormControl isRequired>
-                    <FormLabel htmlFor="fat">Fat</FormLabel>
-                    <Input
-                      type="text"
-                      onChange={formik.handleChange}
-                      value={formik.values.fat}
-                      id="fat"
-                      name="fat"
-                      placeholder="120.00"
-                    />
-                  </FormControl>
-                </Box>
-              </HStack>
               <Stack spacing={10} pt={2}>
                 <Button
-                  loadingText="Adding Item..."
+                  loadingText="Updating Weight..."
                   size="lg"
                   bg={'green.400'}
                   color={'white'}
@@ -192,7 +127,7 @@ export const AddFoodItem: FC = () => {
                   }}
                   type="submit"
                 >
-                  Add Item
+                  Update
                 </Button>
               </Stack>
             </Stack>
@@ -203,4 +138,4 @@ export const AddFoodItem: FC = () => {
   );
 };
 
-export default AddFoodItem;
+export default UpdateWeight;
