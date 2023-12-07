@@ -14,6 +14,7 @@ import {
 import { FC } from 'react';
 import AddFoodItem from '@/components/forms/add-food';
 import UpdateWeight from '../forms/update-weight';
+import UpdateCalories from '../forms/update-food';
 
 export const UpdateSect:FC = () => {
   return (
@@ -33,7 +34,7 @@ export const UpdateSect:FC = () => {
               <TabPanel >
                 <HStack>
                   <Spacer />
-                  <Heading textAlign="center" noOfLines={2}>Coming soon...</Heading>
+                  <UpdateCalories />
                   <Spacer />
                   <AddFoodItem />
                   <Spacer />
