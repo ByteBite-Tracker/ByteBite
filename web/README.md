@@ -1,5 +1,14 @@
 # @ByteBite
 
+## NOTICE: 
+**The database for this project has been deleted due to the cost of hosting**
+
+**If you would like to run the project you will need to host your own database and make migrations from Django**
+
+
+------------------------------------------
+
+
 ## Development Setup
 
 When installing the tools needed for development see the [tools section](#tools) to see which versions to use.
